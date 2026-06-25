@@ -47,7 +47,7 @@ export default function LoadingScreen() {
         />
       </div>
 
-      {/* Logo Container */}
+      {/* Logo Container - Removed all spacing */}
       <motion.div 
         className="relative z-10 flex flex-col items-center"
         initial={{ scale: 0.8, opacity: 0 }}
@@ -72,13 +72,8 @@ export default function LoadingScreen() {
           />
         </div>
 
-        {/* Loading Text with Animated Dots */}
-        <motion.div
-          className="mt-8 flex items-center gap-2"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
+        {/* Loading Text with Animated Dots - No margin/padding */}
+        <div className="flex items-center gap-2">
           <span className="text-[#040316]/60 text-sm font-medium tracking-wider">
             Loading
           </span>
@@ -91,18 +86,10 @@ export default function LoadingScreen() {
             <span className="w-1.5 h-1.5 rounded-full bg-[#003194] delay-150" />
             <span className="w-1.5 h-1.5 rounded-full bg-[#003194] delay-300" />
           </motion.span>
-        </motion.div>
+        </div>
 
-        {/* Progress Bar */}
-        <motion.div
-          className="mt-6 w-48 md:w-64 h-0.5 bg-[#003194]/10 rounded-full overflow-hidden"
-          initial={{ width: 0, opacity: 0 }}
-          animate={{ 
-            width: "100%", 
-            opacity: 1,
-            transition: { delay: 0.5, duration: 0.5 }
-          }}
-        >
+        {/* Progress Bar - Minimal spacing */}
+        <div className="w-48 md:w-64 h-0.5 bg-[#003194]/10 rounded-full overflow-hidden">
           <motion.div
             className="h-full bg-gradient-to-r from-[#003194] via-[#6D67E4] to-[#003194] rounded-full"
             initial={{ width: 0 }}
@@ -111,16 +98,11 @@ export default function LoadingScreen() {
               transition: { duration: 2, ease: "easeInOut" }
             }}
           />
-        </motion.div>
+        </div>
 
-        <motion.p
-          className="mt-4 text-[#040316]/30 text-xs tracking-[0.2em] uppercase"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
+        <p className="text-[#040316]/30 text-xs tracking-[0.2em] uppercase">
           RD Technologies
-        </motion.p>
+        </p>
       </motion.div>
 
       {/* Decorative Corners */}
