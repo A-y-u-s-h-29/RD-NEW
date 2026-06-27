@@ -4,110 +4,70 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { 
+import {
   Sparkles,
-  Building2,
-  Factory,
-  Plane,
-  Ship,
-  Trophy,
-  Cpu,
-  Warehouse,
-  Landmark,
-  Shield,
   ArrowRight,
-  MapPin,
   Users,
   Briefcase,
-  Building,
   Globe,
   Award,
-  TrendingUp,
-  ChevronRight
 } from "lucide-react";
 
 const industries = [
   {
     id: 1,
-    name: "Infrastructure & Highways",
-    description: "Providing robust high mast lighting solutions for national highways, expressways, and urban infrastructure projects across India.",
-    icon: <Building2 size={28} />,
-    image: "/images/infrastructure.jpg",
-    stats: "50+ Projects",
-    size: "large" // large, medium, small
+    name: "Railways",
+    description:
+      "High-performance lighting systems for railway stations, platforms, freight yards, and rail infrastructure.",
+    image: "/images/img(1).webp",
+    tag: "Transportation",
+    stats: "100+ Projects",
   },
   {
     id: 2,
-    name: "Aviation & Airports",
-    description: "Specialized lighting systems for airport perimeters, runways, and terminal areas with advanced wind-resistant technology.",
-    icon: <Plane size={28} />,
-    image: "/images/aviation.jpg",
-    stats: "15+ Airports",
-    size: "medium"
+    name: "Parks & Gardens",
+    description:
+      "Elegant outdoor lighting solutions that improve safety and enhance the beauty of public parks and green spaces.",
+    image: "/images/img(2).jpg",
+    tag: "Landscape",
+    stats: "75+ Projects",
   },
   {
     id: 3,
-    name: "Ports & Marine",
-    description: "Corrosion-resistant high masts engineered for harsh coastal environments, ports, harbors, and offshore facilities.",
-    icon: <Ship size={28} />,
-    image: "/images/marine.jpg",
-    stats: "12+ Ports",
-    size: "small"
+    name: "Highways & Expressways",
+    description:
+      "Robust high mast lighting designed to provide maximum visibility for highways, flyovers, and major road networks.",
+    image: "/images/img(3).png",
+    tag: "Infrastructure",
+    stats: "150+ Projects",
   },
   {
     id: 4,
-    name: "Sports & Stadiums",
-    description: "State-of-the-art stadium lighting systems providing optimal illumination for international sporting events and broadcasts.",
-    icon: <Trophy size={28} />,
-    image: "/images/stadium.jpg",
-    stats: "20+ Stadiums",
-    size: "medium"
+    name: "Government Projects",
+    description:
+      "Custom-engineered lighting poles and mast solutions for public infrastructure and government developments.",
+    image: "/images/img(4).jpg",
+    tag: "Public Infrastructure",
+    stats: "80+ Projects",
   },
   {
     id: 5,
-    name: "Smart Cities",
-    description: "IoT-enabled smart lighting poles with integrated sensors, cameras, and communication modules for future-ready cities.",
-    icon: <Cpu size={28} />,
-    image: "/images/smart-city.jpg",
-    stats: "8+ Cities",
-    size: "large"
+    name: "Educational Campuses",
+    description:
+      "Reliable outdoor lighting systems for universities, colleges, schools, and institutional campuses.",
+    image: "/images/img(5).webp",
+    tag: "Education",
+    stats: "60+ Campuses",
   },
-  {
-    id: 6,
-    name: "Industrial & Manufacturing",
-    description: "Heavy-duty lighting towers for factories, warehouses, and industrial facilities with demanding operational conditions.",
-    icon: <Factory size={28} />,
-    image: "/images/industrial.jpg",
-    stats: "100+ Facilities",
-    size: "small"
-  },
-  {
-    id: 7,
-    name: "Government & Defense",
-    description: "Premium flag masts and lighting solutions for government buildings, defense establishments, and national monuments.",
-    icon: <Shield size={28} />,
-    image: "/images/government.jpg",
-    stats: "25+ Institutions",
-    size: "medium"
-  },
-  {
-    id: 8,
-    name: "Commercial & Corporate",
-    description: "Elegant flag masts and architectural lighting solutions for corporate headquarters, business parks, and commercial complexes.",
-    icon: <Building size={28} />,
-    image: "/images/commercial.jpg",
-    stats: "50+ Corporates",
-    size: "small"
-  }
 ];
 
 export default function Industries() {
   const sectionRef = useRef(null);
   const [hoveredId, setHoveredId] = useState(null);
-  const isInView = useInView(sectionRef, { 
-    once: true, 
+  const isInView = useInView(sectionRef, {
+    once: true,
     amount: 0.1,
-    margin: "-100px"
+    margin: "-100px",
   });
 
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -118,47 +78,32 @@ export default function Industries() {
     }
   }, [isInView, hasAnimated]);
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
         staggerChildren: 0.08,
-        delayChildren: 0.3
-      }
-    }
+        delayChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
-    hidden: { y: 50, opacity: 0, scale: 0.9 },
+    hidden: { y: 40, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      scale: 1,
       transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1]
-      }
-    }
-  };
-
-  const getSizeClasses = (size) => {
-    switch(size) {
-      case 'large':
-        return 'col-span-2 row-span-2 aspect-square';
-      case 'medium':
-        return 'col-span-1 row-span-1 aspect-square';
-      case 'small':
-        return 'col-span-1 row-span-1 aspect-square';
-      default:
-        return 'col-span-1 row-span-1 aspect-square';
-    }
+        duration: 0.6,
+        ease: [0.25, 1, 0.5, 1],
+      },
+    },
   };
 
   return (
-    <section 
-      id="industries" 
+    <section
+      id="industries"
       ref={sectionRef}
       className="relative py-20 sm:py-24 lg:py-28 overflow-hidden bg-[#f4f3f0]"
     >
@@ -169,16 +114,14 @@ export default function Industries() {
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 1, delay: 0.2 }}
       >
-        <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-[#003194]/5 via-transparent to-transparent" />
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#003194]/5 via-transparent to-transparent" />
         <div className="absolute bottom-0 left-0 w-1/3 h-2/3 bg-gradient-to-tr from-[#6D67E4]/5 via-transparent to-transparent" />
-        
         <div className="absolute top-10 left-10 opacity-10">
           <div className="w-20 h-20 border-2 border-[#003194] rotate-12" />
         </div>
         <div className="absolute bottom-20 right-10 opacity-10">
           <div className="w-32 h-32 border-2 border-[#6D67E4] rounded-full" />
         </div>
-        
         <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
@@ -186,32 +129,11 @@ export default function Industries() {
                              repeating-linear-gradient(90deg, transparent, transparent 60px, #003194 60px, #003194 61px)`,
           }}
         />
-        
-        <div className="absolute top-20 left-20 w-24 h-24 border-r-2 border-t-2 border-[#003194]/10 rounded-tr-3xl" />
-        <div className="absolute bottom-20 right-20 w-32 h-32 border-l-2 border-b-2 border-[#003194]/10 rounded-bl-3xl" />
-        
-        {/* Floating particles */}
-        <motion.div
-          className="absolute top-1/3 left-1/3 w-2 h-2 bg-[#003194]/20 rounded-full"
-          animate={{
-            y: [0, -20, 0],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{ duration: 5, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-1/3 right-1/3 w-3 h-3 bg-[#6D67E4]/20 rounded-full"
-          animate={{
-            y: [0, 20, 0],
-            opacity: [0.2, 0.5, 0.2],
-          }}
-          transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-        />
       </motion.div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -226,15 +148,16 @@ export default function Industries() {
             <Sparkles size={16} className="text-[#003194]" />
             Industries We Serve
           </motion.div>
-          
-          <motion.h2 
+
+          <motion.h2
             className="font-bold text-[#040316] text-4xl sm:text-5xl lg:text-6xl leading-[1.05] tracking-tight"
             initial={{ y: 30, opacity: 0 }}
             animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
             transition={{ duration: 0.9, delay: 0.5 }}
           >
-            PARTNERING <span className="text-[#003194] relative inline-block">
-              DIVERSE INDUSTRIES
+            VERTICAL{" "}
+            <span className="text-[#003194] relative inline-block">
+              INDUSTRY SHOWCASE
               <motion.span
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-[#003194]/20 rounded-full"
                 initial={{ scaleX: 0 }}
@@ -243,165 +166,177 @@ export default function Industries() {
               />
             </span>
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             className="text-[#040316]/60 text-base sm:text-lg max-w-2xl mx-auto mt-6"
             initial={{ y: 30, opacity: 0 }}
             animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            Trusted by leading organizations across sectors for our quality, reliability, and engineering excellence
+            Hover over any industry to explore detailed information
           </motion.p>
         </motion.div>
 
-        {/* Collage Grid */}
-        <motion.div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 max-w-6xl mx-auto"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {industries.map((industry, index) => (
-            <motion.div
-              key={industry.id}
-              variants={itemVariants}
-              className={`relative group overflow-hidden rounded-2xl ${getSizeClasses(industry.size)}`}
-              onMouseEnter={() => setHoveredId(industry.id)}
-              onMouseLeave={() => setHoveredId(null)}
-            >
-              {/* Image Container */}
-              <div className="relative w-full h-full bg-[#003194]/5">
-                <Image
-                  src={industry.image}
-                  alt={industry.name}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
-                />
-                
-                {/* Gradient Overlay - Darker on hover */}
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent transition-opacity duration-500"
-                  animate={{
-                    opacity: hoveredId === industry.id ? 0.6 : 0.3
-                  }}
-                  transition={{ duration: 0.4 }}
-                />
-                
-                {/* Industry Icon - Top */}
-                <div className="absolute top-4 left-4 text-white/70 group-hover:text-white transition-colors duration-300">
-                  <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    {industry.icon}
-                  </div>
+        {/* Premium Expandable Gallery */}
+<motion.div
+  className="flex flex-col md:flex-row gap-0.5 max-w-7xl mx-auto h-[550px] items-stretch"
+  variants={containerVariants}
+  initial="hidden"
+  animate={isInView ? "visible" : "hidden"}
+>
+          {industries.map((industry) => {
+            const isExpanded = hoveredId === industry.id;
+
+            return (
+              <motion.div
+                key={industry.id}
+                variants={itemVariants}
+                onMouseEnter={() => setHoveredId(industry.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                className="relative overflow-hidden rounded-2xl cursor-pointer bg-white shadow-lg shadow-[#040316]/5 border border-white/60"
+                style={{
+                  flex: isExpanded ? "3 1 0%" : "1 1 0%",
+                  transition: "flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease, transform 0.4s ease",
+                  opacity: hoveredId && !isExpanded ? 0.4 : 1,
+                  transform: hoveredId && !isExpanded ? "scale(0.98)" : "scale(1)",
+                }}
+              >
+                {/* Background Image Container */}
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src={industry.image}
+                    alt={industry.name}
+                    fill
+                    className="object-cover object-center transition-transform duration-700 ease-out"
+                    style={{
+                      transform: isExpanded ? "scale(1.05)" : "scale(1)",
+                    }}
+                    priority={industry.id <= 2}
+                  />
+                  {/* Base Gradient Mask Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                 </div>
 
-                {/* Industry Name - Bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <motion.h3 
-                    className="font-bold text-white text-lg sm:text-xl mb-1"
-                    animate={{
-                      y: hoveredId === industry.id ? -50 : 0
-                    }}
-                    transition={{ duration: 0.4 }}
-                  >
+                {/* Default State Content Layer */}
+                <div
+                  className="absolute inset-0 p-6 flex flex-col justify-end transition-opacity duration-300"
+                  style={{ opacity: isExpanded ? 0 : 1 }}
+                >
+                  <span className="self-start px-2.5 py-1 bg-white/10 backdrop-blur-md rounded-full text-white text-xs font-medium tracking-wide uppercase border border-white/20 mb-3">
+                    {industry.tag}
+                  </span>
+                  <h3 className="text-white text-xl font-bold tracking-tight line-clamp-2">
                     {industry.name}
-                  </motion.h3>
-                  
-                  <motion.div
-                    className="flex items-center gap-2 text-white/60 text-sm"
-                    animate={{
-                      y: hoveredId === industry.id ? -50 : 0,
-                      opacity: hoveredId === industry.id ? 0 : 1
-                    }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <span className="text-xs font-medium bg-white/10 px-2 py-0.5 rounded-full backdrop-blur-sm">
-                      {industry.stats}
-                    </span>
-                  </motion.div>
+                  </h3>
+                  <p className="text-white/60 text-xs mt-1 font-medium">
+                    {industry.stats}
+                  </p>
+                </div>
 
-                  {/* Description - Appears on hover */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{
-                      opacity: hoveredId === industry.id ? 1 : 0,
-                      y: hoveredId === industry.id ? 0 : 20
-                    }}
-                    transition={{ duration: 0.4 }}
-                    className="absolute bottom-full left-0 right-0 p-4 bg-gradient-to-t from-black/90 to-transparent"
-                  >
-                    <p className="text-white/90 text-sm leading-relaxed mb-3">
+                {/* Expanded State Content Layer */}
+                <div
+                  className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/95 via-black/80 to-transparent p-6 sm:p-10 flex flex-col justify-end md:justify-center max-w-xl transition-all duration-500"
+                  style={{
+                    opacity: isExpanded ? 1 : 0,
+                    pointerEvents: isExpanded ? "auto" : "none",
+                    transform: isExpanded ? "translateX(0px)" : "translateX(-20px)",
+                  }}
+                >
+                  <div>
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-[#003194] to-[#6D67E4] rounded-full text-white text-xs font-semibold uppercase tracking-wider mb-4 shadow-lg shadow-[#003194]/25">
+                      <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                      {industry.tag}
+                    </span>
+
+                    <h3 className="font-bold text-white text-2xl sm:text-3xl lg:text-4xl leading-tight mb-3">
+                      {industry.name}
+                    </h3>
+
+                    <p className="text-white/70 text-sm sm:text-base leading-relaxed mb-6">
                       {industry.description}
                     </p>
-                    <div className="flex items-center gap-1 text-white/70 text-xs font-medium">
-                      <span>Learn More</span>
-                      <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+
+                    {/* Quick Specs Grid */}
+                    <div className="grid grid-cols-2 gap-3 mb-6">
+                      <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                        <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">
+                          Total Volume
+                        </p>
+                        <p className="text-white font-extrabold text-lg mt-0.5">
+                          {industry.projects}
+                        </p>
+                      </div>
+                      <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                        <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">
+                          Market Presence
+                        </p>
+                        <p className="text-white font-extrabold text-lg mt-0.5">
+                          {industry.experience}
+                        </p>
+                      </div>
                     </div>
-                  </motion.div>
-                </div>
 
-                {/* Decorative Corner */}
-                <div className="absolute top-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity duration-300">
-                  <div className="w-8 h-8 border-t-2 border-r-2 border-white rounded-tr-lg" />
+                    <button className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#003194] font-semibold rounded-xl hover:bg-gray-100 transition-colors duration-200 text-sm shadow-lg shadow-black/20">
+                      <span>Explore Segment</span>
+                      <ArrowRight size={16} />
+                    </button>
+                  </div>
                 </div>
-
-                {/* Subtle Border Glow on Hover */}
-                <motion.div
-                  className="absolute inset-0 rounded-2xl border-2 border-white/0 group-hover:border-white/30 transition-all duration-500 pointer-events-none"
-                  animate={{
-                    borderColor: hoveredId === industry.id ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0)'
-                  }}
-                  transition={{ duration: 0.4 }}
-                />
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </motion.div>
 
-        {/* Bottom Section with Stats */}
+        {/* Bottom Overall Stats Panel */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 1.0 }}
-          className="mt-16"
+          className="mt-20 bg-white/80 backdrop-blur-sm rounded-2xl border border-white/60 shadow-xl shadow-[#003194]/5 p-8 md:p-12 max-w-5xl mx-auto"
         >
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/60 shadow-xl shadow-[#003194]/5 p-8 md:p-12 max-w-5xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {[
-                { icon: <Globe size={24} />, label: "Industries Served", value: "8+" },
-                { icon: <Briefcase size={24} />, label: "Projects Completed", value: "500+" },
-                { icon: <Users size={24} />, label: "Happy Clients", value: "200+" },
-                { icon: <Award size={24} />, label: "Years of Excellence", value: "15+" }
-              ].map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                  transition={{ delay: 1.2 + index * 0.1 }}
-                  className="text-center"
-                >
-                  <div className="flex justify-center text-[#003194] mb-2">
-                    {stat.icon}
-                  </div>
-                  <p className="text-2xl font-bold text-[#040316]">{stat.value}</p>
-                  <p className="text-xs text-[#040316]/50">{stat.label}</p>
-                </motion.div>
-              ))}
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { icon: <Globe size={22} />, label: "Industries Served", value: "8+" },
+              { icon: <Briefcase size={22} />, label: "Projects Completed", value: "500+" },
+              { icon: <Users size={22} />, label: "Happy Clients", value: "200+" },
+              { icon: <Award size={22} />, label: "Years of Excellence", value: "15+" },
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ delay: 1.2 + index * 0.1 }}
+                className="text-center md:border-r last:border-0 border-[#040316]/10 px-2"
+              >
+                <div className="flex justify-center text-[#003194] mb-3">{stat.icon}</div>
+                <p className="text-2xl sm:text-3xl font-extrabold text-[#040316] tracking-tight">{stat.value}</p>
+                <p className="text-xs text-[#040316]/40 font-medium mt-1 uppercase tracking-wider">{stat.label}</p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
-        {/* Bottom Decorative Element */}
+        {/* Bottom Call-To-Action */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ delay: 1.4 }}
-          className="mt-12 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="mt-14 text-center"
         >
-          <div className="inline-flex items-center gap-2 text-[#040316]/40 text-sm">
-            <span className="w-8 h-px bg-[#040316]/20" />
-            <span>Trusted across sectors for quality and reliability</span>
-            <span className="w-8 h-px bg-[#040316]/20" />
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+            <div className="flex items-center gap-3 text-[#040316]/30 text-xs uppercase tracking-widest">
+              <span className="w-8 h-px bg-[#040316]/20" />
+              <span className="font-medium">Full Portfolio Access</span>
+              <span className="w-8 h-px bg-[#040316]/20" />
+            </div>
+            <motion.button
+              className="inline-flex items-center gap-3 px-8 py-3.5 bg-gradient-to-r from-[#003194] to-[#6D67E4] text-white font-semibold rounded-2xl shadow-xl shadow-[#003194]/25 hover:shadow-2xl hover:shadow-[#003194]/40 transition-all duration-300"
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span>Request Custom Engineering</span>
+              <ArrowRight size={18} />
+            </motion.button>
           </div>
         </motion.div>
       </div>

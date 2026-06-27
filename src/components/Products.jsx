@@ -50,41 +50,37 @@ export default function Products() {
     }
   }, [isInView, hasAnimated]);
 
-  // Background animation - separate
+  // STAGE 1: Premium Background slide up and reveal
   const backgroundVariants = {
     hidden: { y: "100%", opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 1.2,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0
+        duration: 0.9,
+        ease: [0.25, 1, 0.5, 1], // Premium ease-in-out curve
       }
     }
   };
 
-  // Header animations - separate
+  // STAGE 2: Section Header Reveal
   const headerContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        duration: 0.3,
-        delay: 0.8
-      }
+      transition: { duration: 0.1 }
     }
   };
 
   const headerBadgeVariants = {
-    hidden: { y: 40, opacity: 0 },
+    hidden: { y: 50, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.9,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.9
+        duration: 0.7,
+        ease: [0.215, 0.610, 0.355, 1],
+        delay: 0.8 // Triggers precisely as background animation completes
       }
     }
   };
@@ -95,9 +91,9 @@ export default function Products() {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 1,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 1.1
+        duration: 0.7,
+        ease: [0.215, 0.610, 0.355, 1],
+        delay: 0.95
       }
     }
   };
@@ -108,169 +104,129 @@ export default function Products() {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.9,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 1.4
+        duration: 0.7,
+        ease: [0.215, 0.610, 0.355, 1],
+        delay: 1.1
       }
     }
   };
 
-  // Card animations - separate for each card
+  // STAGE 2 CONTINUED: Product Card Structural Wrappers & Text Content Staggers
   const cardLeftVariants = {
-    hidden: { y: 80, opacity: 0, scale: 0.95 },
+    hidden: { y: 60, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      scale: 1,
       transition: {
-        duration: 1.1,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 1.8,
-        type: "spring",
-        bounce: 0.3,
-        stiffness: 100,
-        damping: 20
+        duration: 0.8,
+        ease: [0.215, 0.610, 0.355, 1],
+        delay: 1.25
       }
     }
   };
 
   const cardRightVariants = {
-    hidden: { y: 80, opacity: 0, scale: 0.95 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 1.1,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 2.1,
-        type: "spring",
-        bounce: 0.3,
-        stiffness: 100,
-        damping: 20
-      }
-    }
-  };
-
-  // Card content animations - separate for each element
-  const cardBadgeVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0
-      }
-    }
-  };
-
-  const cardTitleVariants = {
-    hidden: { y: 35, opacity: 0 },
+    hidden: { y: 60, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
         duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.15
+        ease: [0.215, 0.610, 0.355, 1],
+        delay: 1.4
       }
     }
+  };
+
+  // Staggered contents inside product description frames
+  const cardBadgeVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: (customDelay) => ({
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: "easeOut", delay: customDelay + 0.1 }
+    })
+  };
+
+  const cardTitleVariants = {
+    hidden: { y: 35, opacity: 0 },
+    visible: (customDelay) => ({
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: "easeOut", delay: customDelay + 0.2 }
+    })
   };
 
   const cardDescVariants = {
     hidden: { y: 30, opacity: 0 },
-    visible: {
+    visible: (customDelay) => ({
       y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.3
-      }
-    }
+      transition: { duration: 0.6, ease: "easeOut", delay: customDelay + 0.3 }
+    })
   };
 
   const cardFeaturesVariants = {
     hidden: { y: 25, opacity: 0 },
-    visible: {
+    visible: (customDelay) => ({
       y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.45
-      }
-    }
+      transition: { duration: 0.6, ease: "easeOut", delay: customDelay + 0.4 }
+    })
   };
 
   const cardSpecsVariants = {
     hidden: { y: 25, opacity: 0 },
-    visible: {
+    visible: (customDelay) => ({
       y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.6
-      }
-    }
+      transition: { duration: 0.6, ease: "easeOut", delay: customDelay + 0.5 }
+    })
   };
 
   const cardCtaVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: {
+    visible: (customDelay) => ({
       y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.75
-      }
-    }
+      transition: { duration: 0.5, ease: "easeOut", delay: customDelay + 0.6 }
+    })
   };
 
+  // STAGE 3: Final Product Image Reveal (Slides up with subtle premium scaling effect)
   const cardImageVariants = {
-    hidden: { y: 50, opacity: 0, scale: 0.88 },
-    visible: {
+    hidden: { y: 50, opacity: 0, scale: 0.95 },
+    visible: (customDelay) => ({
       y: 0,
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 1.2,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.9,
-        type: "spring",
-        bounce: 0.25,
-        stiffness: 90,
-        damping: 18
+        duration: 0.8,
+        ease: [0.25, 1, 0.5, 1],
+        delay: customDelay + 0.75 // Ensures images render after content narration concludes
       }
-    }
+    })
   };
 
-  // Stats animations
+  // Supplemental Stats Segment
   const statsContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 2.6
+        staggerChildren: 0.1,
+        delayChildren: 2.3
       }
     }
   };
 
   const statItemVariants = {
-    hidden: { y: 40, opacity: 0, scale: 0.9 },
+    hidden: { y: 30, opacity: 0, scale: 0.95 },
     visible: {
       y: 0,
       opacity: 1,
       scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1]
-      }
+      transition: { duration: 0.6, ease: "easeOut" }
     }
   };
 
@@ -279,11 +235,7 @@ export default function Products() {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 3.0
-      }
+      transition: { duration: 0.6, ease: "easeOut", delay: 2.7 }
     }
   };
 
@@ -293,7 +245,7 @@ export default function Products() {
       ref={sectionRef}
       className="relative py-20 sm:py-24 lg:py-28 overflow-hidden bg-[#f4f3f0]"
     >
-      {/* Background - Loads First */}
+      {/* Background Layer - Step 1 Reveal */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         variants={backgroundVariants}
@@ -315,7 +267,7 @@ export default function Products() {
           className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 60px, #003194 60px, #003194 61px),
-                             repeating-linear-gradient(90deg, transparent, transparent 60px, #003194 60px, #003194 61px)`,
+                              repeating-linear-gradient(90deg, transparent, transparent 60px, #003194 60px, #003194 61px)`,
           }}
         />
         
@@ -342,7 +294,8 @@ export default function Products() {
       </motion.div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header - Loads Second */}
+        
+        {/* Section Header Text Content - Step 2 Reveal */}
         <motion.div 
           className="text-center mb-16"
           variants={headerContainerVariants}
@@ -367,7 +320,7 @@ export default function Products() {
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-[#003194]/20 rounded-full"
                 initial={{ scaleX: 0 }}
                 animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-                transition={{ duration: 1.2, delay: 1.8, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1, delay: 1.6, ease: [0.25, 1, 0.5, 1] }}
               />
             </span>
           </motion.h2>
@@ -380,9 +333,10 @@ export default function Products() {
           </motion.p>
         </motion.div>
 
-        {/* Products Grid - Equal Height Cards with Full Images */}
+        {/* Products Grid Area */}
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
-          {/* Left Card */}
+          
+          {/* Left Card Frame */}
           <motion.div
             variants={cardLeftVariants}
             initial="hidden"
@@ -393,53 +347,31 @@ export default function Products() {
               <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/20 pointer-events-none" />
               <div className="absolute inset-0 rounded-[2.5rem] rounded-tr-[6rem] rounded-tl-[6rem] border border-white/10 pointer-events-none" />
               
+              {/* Product Content Elements - Step 2 Stagger */}
               <div className="relative p-8 sm:p-10 lg:p-12 pt-12 sm:pt-14 lg:pt-16 flex-1 flex flex-col">
-                {/* Badge */}
-                <motion.div
-                  variants={cardBadgeVariants}
-                  className="inline-block mb-4"
-                >
+                <motion.div variants={cardBadgeVariants} custom={1.25} className="inline-block mb-4">
                   <span className="text-xs font-bold uppercase tracking-widest text-white/70 bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/10">
                     {products[0].category}
                   </span>
                 </motion.div>
 
-                {/* Title */}
-                <motion.h3
-                  variants={cardTitleVariants}
-                  className="font-bold text-white text-3xl sm:text-4xl lg:text-5xl leading-[1.1] mb-4"
-                >
+                <motion.h3 variants={cardTitleVariants} custom={1.25} className="font-bold text-white text-3xl sm:text-4xl lg:text-5xl leading-[1.1] mb-4">
                   {products[0].name}
                 </motion.h3>
 
-                {/* Description */}
-                <motion.p
-                  variants={cardDescVariants}
-                  className="text-white/80 text-sm sm:text-base leading-relaxed max-w-md mb-6"
-                >
+                <motion.p variants={cardDescVariants} custom={1.25} className="text-white/80 text-sm sm:text-base leading-relaxed max-w-md mb-6">
                   {products[0].description}
                 </motion.p>
 
-                {/* Features */}
-                <motion.div
-                  variants={cardFeaturesVariants}
-                  className="flex flex-wrap gap-2 mb-6"
-                >
+                <motion.div variants={cardFeaturesVariants} custom={1.25} className="flex flex-wrap gap-2 mb-6">
                   {products[0].features.map((feature) => (
-                    <span
-                      key={feature}
-                      className="text-xs font-medium text-white/90 bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/5"
-                    >
+                    <span key={feature} className="text-xs font-medium text-white/90 bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/5">
                       {feature}
                     </span>
                   ))}
                 </motion.div>
 
-                {/* Specifications */}
-                <motion.div
-                  variants={cardSpecsVariants}
-                  className="space-y-1.5 mb-8 flex-1"
-                >
+                <motion.div variants={cardSpecsVariants} custom={1.25} className="space-y-1.5 mb-8 flex-1">
                   {products[0].specs.map((spec) => (
                     <div key={spec} className="flex items-center gap-2.5 text-sm text-white/70">
                       <span className="w-1.5 h-1.5 rounded-full bg-white/30 flex-shrink-0" />
@@ -448,8 +380,7 @@ export default function Products() {
                   ))}
                 </motion.div>
 
-                {/* CTA */}
-                <motion.div variants={cardCtaVariants}>
+                <motion.div variants={cardCtaVariants} custom={1.25}>
                   <a
                     href="#inquiry"
                     className="group/btn inline-flex items-center gap-2 px-6 py-3 bg-white text-[#003194] font-semibold text-sm rounded-full hover:bg-white/90 transition-all duration-300 shadow-lg shadow-black/20"
@@ -467,12 +398,15 @@ export default function Products() {
                 </div>
               </div>
 
-              {/* Image - Loads Last - Fixed to show full image */}
+              {/* Product Image Component - Step 3 Final Reveal */}
               <motion.div
                 variants={cardImageVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                custom={1.25}
                 className="relative px-6 sm:px-8 pb-6 sm:pb-8 flex-shrink-0"
               >
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/30 group-hover:shadow-3xl group-hover:shadow-black/40 transition-all duration-500 group-hover:scale-[1.02]">
+                <div className="relative rounded-2xl overflow-hidden transition-all duration-500 group-hover:scale-[1.02]">
                   <div className="aspect-[16/9] w-full bg-[#003194]/30 relative">
                     <Image
                       src={products[0].image}
@@ -488,7 +422,7 @@ export default function Products() {
             </div>
           </motion.div>
 
-          {/* Right Card */}
+          {/* Right Card Frame */}
           <motion.div
             variants={cardRightVariants}
             initial="hidden"
@@ -499,48 +433,31 @@ export default function Products() {
               <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/20 pointer-events-none" />
               <div className="absolute inset-0 rounded-[2.5rem] rounded-tr-[6rem] rounded-tl-[6rem] border border-white/10 pointer-events-none" />
               
+              {/* Product Content Elements - Step 2 Stagger */}
               <div className="relative p-8 sm:p-10 lg:p-12 pt-12 sm:pt-14 lg:pt-16 flex-1 flex flex-col">
-                <motion.div
-                  variants={cardBadgeVariants}
-                  className="inline-block mb-4"
-                >
+                <motion.div variants={cardBadgeVariants} custom={1.4} className="inline-block mb-4">
                   <span className="text-xs font-bold uppercase tracking-widest text-white/70 bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/10">
                     {products[1].category}
                   </span>
                 </motion.div>
 
-                <motion.h3
-                  variants={cardTitleVariants}
-                  className="font-bold text-white text-3xl sm:text-4xl lg:text-5xl leading-[1.1] mb-4"
-                >
+                <motion.h3 variants={cardTitleVariants} custom={1.4} className="font-bold text-white text-3xl sm:text-4xl lg:text-5xl leading-[1.1] mb-4">
                   {products[1].name}
                 </motion.h3>
 
-                <motion.p
-                  variants={cardDescVariants}
-                  className="text-white/80 text-sm sm:text-base leading-relaxed max-w-md mb-6"
-                >
+                <motion.p variants={cardDescVariants} custom={1.4} className="text-white/80 text-sm sm:text-base leading-relaxed max-w-md mb-6">
                   {products[1].description}
                 </motion.p>
 
-                <motion.div
-                  variants={cardFeaturesVariants}
-                  className="flex flex-wrap gap-2 mb-6"
-                >
+                <motion.div variants={cardFeaturesVariants} custom={1.4} className="flex flex-wrap gap-2 mb-6">
                   {products[1].features.map((feature) => (
-                    <span
-                      key={feature}
-                      className="text-xs font-medium text-white/90 bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/5"
-                    >
+                    <span key={feature} className="text-xs font-medium text-white/90 bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/5">
                       {feature}
                     </span>
                   ))}
                 </motion.div>
 
-                <motion.div
-                  variants={cardSpecsVariants}
-                  className="space-y-1.5 mb-8 flex-1"
-                >
+                <motion.div variants={cardSpecsVariants} custom={1.4} className="space-y-1.5 mb-8 flex-1">
                   {products[1].specs.map((spec) => (
                     <div key={spec} className="flex items-center gap-2.5 text-sm text-white/70">
                       <span className="w-1.5 h-1.5 rounded-full bg-white/30 flex-shrink-0" />
@@ -549,7 +466,7 @@ export default function Products() {
                   ))}
                 </motion.div>
 
-                <motion.div variants={cardCtaVariants}>
+                <motion.div variants={cardCtaVariants} custom={1.4}>
                   <a
                     href="#inquiry"
                     className="group/btn inline-flex items-center gap-2 px-6 py-3 bg-white text-[#003194] font-semibold text-sm rounded-full hover:bg-white/90 transition-all duration-300 shadow-lg shadow-black/20"
@@ -567,11 +484,15 @@ export default function Products() {
                 </div>
               </div>
 
+              {/* Product Image Component - Step 3 Final Reveal */}
               <motion.div
                 variants={cardImageVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                custom={1.4}
                 className="relative px-6 sm:px-8 pb-6 sm:pb-8 flex-shrink-0"
               >
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/30 group-hover:shadow-3xl group-hover:shadow-black/40 transition-all duration-500 group-hover:scale-[1.02]">
+                <div className="relative rounded-2xl overflow-hidden ">
                   <div className="aspect-[16/9] w-full bg-[#003194]/30 relative">
                     <Image
                       src={products[1].image}
@@ -581,14 +502,13 @@ export default function Products() {
                       loading="lazy"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
                 </div>
               </motion.div>
             </div>
           </motion.div>
         </div>
 
-        {/* Bottom Stats - Loads Last */}
+        {/* Supplemental Bottom Stats Panel */}
         <motion.div
           variants={statsContainerVariants}
           initial="hidden"
@@ -615,7 +535,7 @@ export default function Products() {
           ))}
         </motion.div>
 
-        {/* Bottom Decorative Element */}
+        {/* Bottom Decorative Label */}
         <motion.div
           variants={bottomDecorVariants}
           initial="hidden"
