@@ -188,20 +188,21 @@ export default function Footer() {
               <li className="flex items-start gap-3 text-white/40 hover:text-white/60 transition-colors duration-300 group">
                 <MapPin size={16} className="flex-shrink-0 mt-0.5 text-[#003194] group-hover:text-[#6D67E4] transition-colors" />
                 <span className="text-sm leading-relaxed">
-                  RD Technologies and Projects Pvt. Ltd., India
+                  68/1523, 5th Floor,
+C. M. Mathew Brothers Arcade,
+Kannur Road,
+Chakkorathukulam,
+Kozhikode – 673006,
+Kerala, India.
                 </span>
               </li>
               <li className="flex items-center gap-3 text-white/40 hover:text-white/60 transition-colors duration-300 group">
                 <Phone size={16} className="flex-shrink-0 text-[#003194] group-hover:text-[#6D67E4] transition-colors" />
-                <span className="text-sm">+91 XXXXX XXXXX</span>
+                <span className="text-sm">+91 85956 52629</span>
               </li>
               <li className="flex items-center gap-3 text-white/40 hover:text-white/60 transition-colors duration-300 group">
                 <Mail size={16} className="flex-shrink-0 text-[#003194] group-hover:text-[#6D67E4] transition-colors" />
                 <span className="text-sm">info@rdtechnologies.in</span>
-              </li>
-              <li className="flex items-center gap-3 text-white/40 hover:text-white/60 transition-colors duration-300 group">
-                <Clock size={16} className="flex-shrink-0 text-[#003194] group-hover:text-[#6D67E4] transition-colors" />
-                <span className="text-sm">Mon – Sat, 9:00 AM – 6:00 PM</span>
               </li>
             </ul>
           </div>
@@ -213,10 +214,10 @@ export default function Footer() {
             © {currentYear} RD Technologies and Projects Pvt. Ltd. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center gap-4 text-white/30 text-xs">
-            <span>CIN: U28000XXXXXXXXX</span>
+            {/* <span>CIN: U28000XXXXXXXXX</span>
             <span className="hidden sm:inline w-px h-3 bg-white/10" />
-            <span>GST: XXXXXXXXXXXXXXXXX</span>
-            <span className="hidden sm:inline w-px h-3 bg-white/10" />
+            <span>GST: XXXXXXXXXXXXXXXXX</span> */}
+            {/* <span className="hidden sm:inline w-px h-3 bg-white/10" /> */}
             <a href="#" className="hover:text-white/60 transition-colors">
               Privacy Policy
             </a>

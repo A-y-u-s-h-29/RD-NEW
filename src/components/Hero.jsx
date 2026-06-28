@@ -60,7 +60,7 @@ export default function Hero() {
         <div className="absolute top-10 left-10 w-24 h-24 border-r-2 border-t-2 border-[#003194]/5 rounded-tr-3xl" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 sm:px-6 lg:px-14 py-8 sm:py-12 lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center w-full mt-8 sm:mt-10 lg:mt-0">
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-14 py-8 sm:py-12 lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center w-full mt-8 sm:mt-10 lg:mt-0">
         {/* LEFT SIDE */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}

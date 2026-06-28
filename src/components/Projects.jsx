@@ -734,7 +734,7 @@ export default function Projects() {
       />
       <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-[#003194]/10 via-transparent to-transparent hidden lg:block" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         
         {/* Header Layout */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 pb-8 border-b border-[#040316]/10">

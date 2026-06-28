@@ -1,24 +1,66 @@
 // components/Navbar.jsx
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Menu, X } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Menu, X, ChevronDown, Building2, Target, Users, Sparkles, Zap } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
+// Update this section in Navbar.jsx
+const aboutSubLinks = [
+  { label: "About Company", href: "/about/company", icon: <Building2 size={16} /> },
+  { label: "Why Choose Us", href: "/about/why-choose-us", icon: <Sparkles size={16} /> },
+  { label: "How We Work", href: "/about/how-we-work", icon: <Zap size={16} /> },
+  { label: "Vision & Mission", href: "/about/vision-mission", icon: <Target size={16} /> },
+];
+
+// Also update the main links
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "About Us", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Products", href: "#products" },
-  { label: "Industries", href: "#industries" },
-  { label: "Contact Us", href: "#inquiry" },
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Products", href: "/#products" },
+  { label: "Industries", href: "/#industries" },
+  { label: "Contact Us", href: "/#inquiry" },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeLink, setActiveLink] = useState("#home");
+  const [activeLink, setActiveLink] = useState("/");
   const [isVisible, setIsVisible] = useState(true);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isMobileAboutOpen, setIsMobileAboutOpen] = useState(false);
   const lastScrollY = useRef(0);
+  const dropdownRef = useRef(null);
+  const aboutRef = useRef(null);
+  const timeoutRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsAboutOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Handle ESC key to close dropdown
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        setIsAboutOpen(false);
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -26,36 +68,34 @@ export default function Navbar() {
       
       setScrolled(currentScrollY > 30);
 
-      // Hide/show navbar based on scroll direction
       if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
-        // Scrolling down - hide navbar
         setIsVisible(false);
       } else {
-        // Scrolling up - show navbar
         setIsVisible(true);
       }
       
       lastScrollY.current = currentScrollY;
 
-      // Active link detection
-      const scrollPosition = window.scrollY + 120;
-
-      for (const link of links) {
-        const section = document.getElementById(
-          link.href.replace("#", "")
-        );
-
-        if (section) {
-          const { offsetTop, offsetHeight } = section;
-
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveLink(link.href);
-            break;
+      // Only check sections on home page
+      if (pathname === "/") {
+        const scrollPosition = window.scrollY + 120;
+        const sections = ["home", "projects", "products", "industries", "inquiry"];
+        
+        for (const sectionId of sections) {
+          const section = document.getElementById(sectionId);
+          if (section) {
+            const { offsetTop, offsetHeight } = section;
+            if (
+              scrollPosition >= offsetTop &&
+              scrollPosition < offsetTop + offsetHeight
+            ) {
+              setActiveLink(`#${sectionId}`);
+              break;
+            }
           }
         }
+      } else if (pathname === "/about") {
+        setActiveLink("/about");
       }
     };
 
@@ -63,19 +103,53 @@ export default function Navbar() {
     onScroll();
 
     return () => window.removeEventListener("scroll", onScroll);
-  }, []); // Empty dependency array - only runs once
+  }, [pathname]);
 
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-
-    document.addEventListener("keydown", handleEscape);
-
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-    };
+  const handleMouseEnter = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setIsAboutOpen(true);
   }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    timeoutRef.current = setTimeout(() => {
+      setIsAboutOpen(false);
+    }, 200);
+  }, []);
+
+  const handleDropdownMouseEnter = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  }, []);
+
+  const handleDropdownMouseLeave = useCallback(() => {
+    timeoutRef.current = setTimeout(() => {
+      setIsAboutOpen(false);
+    }, 200);
+  }, []);
+
+  const handleSubLinkClick = (href) => {
+    setIsAboutOpen(false);
+    setOpen(false);
+  };
+
+  const toggleMobileAbout = () => {
+    setIsMobileAboutOpen(!isMobileAboutOpen);
+  };
+
+  const isActive = (href) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    if (href === "/about") {
+      return pathname === "/about";
+    }
+    return activeLink === href;
+  };
 
   return (
     <>
@@ -94,8 +168,8 @@ export default function Navbar() {
           <div className="h-16 md:h-[72px] rounded-2xl bg-[#5d709b] backdrop-blur-xl border border-white/40 shadow-lg shadow-[#003194]/5">
             <div className="h-full px-5 md:px-8 flex items-center justify-between">
               {/* Logo */}
-              <a
-                href="#home"
+              <Link
+                href="/"
                 className="flex items-start gap-3"
                 aria-label="RD Technologies"
               >
@@ -106,35 +180,99 @@ export default function Navbar() {
                     className="w-full h-full object-contain"
                   />
                 </div>
-              </a>
+              </Link>
 
               {/* Desktop Nav */}
               <nav
                 className="hidden lg:flex items-center gap-1"
                 aria-label="Main navigation"
               >
-                {links.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-                      activeLink === link.href
-                        ? "bg-[#003194] text-white"
-                        : "text-white hover:text-black hover:bg-[#003194]/5"
-                    }`}
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {links.map((link) => {
+                  if (link.label === "About Us") {
+                    return (
+                      <div
+                        key={link.label}
+                        ref={aboutRef}
+                        className="relative"
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <Link
+                          href="/about"
+                          className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-1 ${
+                            pathname === "/about"
+                              ? "bg-[#003194] text-white"
+                              : "text-white hover:text-black hover:bg-[#003194]/5"
+                          }`}
+                          aria-expanded={isAboutOpen}
+                          aria-haspopup="true"
+                        >
+                          About Us
+                          <ChevronDown 
+                            size={16} 
+                            className={`transition-transform duration-300 ${
+                              isAboutOpen ? "rotate-180" : ""
+                            }`}
+                          />
+                        </Link>
+
+                        {/* Dropdown */}
+                        <div
+                          ref={dropdownRef}
+                          onMouseEnter={handleDropdownMouseEnter}
+                          onMouseLeave={handleDropdownMouseLeave}
+                          className={`absolute top-full left-0 mt-2 w-64 bg-white/95 backdrop-blur-xl rounded-2xl border border-white/40 shadow-2xl shadow-[#003194]/10 transition-all duration-300 origin-top-left ${
+                            isAboutOpen
+                              ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+                              : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+                          }`}
+                          role="menu"
+                        >
+                          <div className="p-2">
+                            {aboutSubLinks.map((subLink) => (
+                              <Link
+                                key={subLink.label}
+                                href={subLink.href}
+                                onClick={() => handleSubLinkClick(subLink.href)}
+                                className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-[#040316]/80 hover:text-[#003194] hover:bg-[#003194]/5 transition-all duration-200 group"
+                                role="menuitem"
+                              >
+                                <span className="text-[#003194]/40 group-hover:text-[#003194] transition-colors">
+                                  {subLink.icon}
+                                </span>
+                                <span className="flex-1">{subLink.label}</span>
+                                <span className="w-0.5 h-4 bg-[#003194]/10 group-hover:bg-[#003194] transition-all duration-300 group-hover:h-6" />
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+                        isActive(link.href)
+                          ? "bg-[#003194] text-white"
+                          : "text-white hover:text-black hover:bg-[#003194]/5"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
 
                 <div className="w-px h-6 bg-[#5d709b]/20 mx-2" />
 
-                <a
-                  href="#inquiry"
+                <Link
+                  href="/#inquiry"
                   className="ml-2 px-5 py-2.5 rounded-xl bg-[#003194] text-white text-sm font-semibold shadow-md shadow-[#003194]/20 hover:bg-[#6D67E4] hover:shadow-[#003194]/30 hover:-translate-y-0.5 transition-all duration-300"
                 >
                   Get Quote
-                </a>
+                </Link>
               </nav>
 
               {/* Mobile Menu Button */}
@@ -155,28 +293,83 @@ export default function Navbar() {
         }`}>
           <div className="mt-3 max-w-7xl mx-auto rounded-2xl bg-white/80 backdrop-blur-xl border border-white/40 shadow-lg shadow-[#003194]/5 overflow-hidden">
             <div className="p-3">
-              {links.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                    activeLink === link.href
-                      ? "bg-[#003194] text-white"
-                      : "text-[#040316]/80 hover:bg-[#003194]/5 hover:text-[#003194]"
-                  }`}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {links.map((link) => {
+                if (link.label === "About Us") {
+                  return (
+                    <div key={link.label}>
+                      <button
+                        onClick={toggleMobileAbout}
+                        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                          pathname === "/about"
+                            ? "bg-[#003194] text-white"
+                            : "text-[#040316]/80 hover:bg-[#003194]/5 hover:text-[#003194]"
+                        }`}
+                      >
+                        <span>{link.label}</span>
+                        <ChevronDown 
+                          size={18} 
+                          className={`transition-transform duration-300 ${
+                            isMobileAboutOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
 
-              <a
-                href="#inquiry"
+                      {/* Mobile Submenu */}
+                      <div
+                        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                          isMobileAboutOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
+                        }`}
+                      >
+                        <div className="pl-4 pr-2 py-2 space-y-1">
+                          {aboutSubLinks.map((subLink, index) => (
+                            <Link
+                              key={subLink.label}
+                              href={subLink.href}
+                              onClick={() => {
+                                setIsMobileAboutOpen(false);
+                                setOpen(false);
+                              }}
+                              className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-[#040316]/70 hover:text-[#003194] hover:bg-[#003194]/5 transition-all duration-200 group animate-fadeInSlideUp`}
+                              style={{
+                                animationDelay: `${index * 50}ms`,
+                                animationFillMode: 'both'
+                              }}
+                            >
+                              <span className="text-[#003194]/40 group-hover:text-[#003194] transition-colors">
+                                {subLink.icon}
+                              </span>
+                              <span>{subLink.label}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                      isActive(link.href)
+                        ? "bg-[#003194] text-white"
+                        : "text-[#040316]/80 hover:bg-[#003194]/5 hover:text-[#003194]"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+
+              <Link
+                href="/#inquiry"
                 onClick={() => setOpen(false)}
                 className="mt-3 flex justify-center items-center rounded-xl py-3 font-semibold text-white bg-[#003194] hover:bg-[#6D67E4] transition-colors shadow-md shadow-[#003194]/20"
               >
                 Get Quote
-              </a>
+              </Link>
             </div>
           </div>
         </div>

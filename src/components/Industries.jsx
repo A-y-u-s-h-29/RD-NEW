@@ -256,30 +256,7 @@ export default function Industries() {
                       {industry.description}
                     </p>
 
-                    {/* Quick Specs Grid */}
-                    <div className="grid grid-cols-2 gap-3 mb-6">
-                      <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                        <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">
-                          Total Volume
-                        </p>
-                        <p className="text-white font-extrabold text-lg mt-0.5">
-                          {industry.projects}
-                        </p>
-                      </div>
-                      <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                        <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">
-                          Market Presence
-                        </p>
-                        <p className="text-white font-extrabold text-lg mt-0.5">
-                          {industry.experience}
-                        </p>
-                      </div>
-                    </div>
-
-                    <button className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#003194] font-semibold rounded-xl hover:bg-gray-100 transition-colors duration-200 text-sm shadow-lg shadow-black/20">
-                      <span>Explore Segment</span>
-                      <ArrowRight size={16} />
-                    </button>
+                    
                   </div>
                 </div>
               </motion.div>

@@ -1,0 +1,73 @@
+// components/PageLayout.jsx
+"use client";
+
+import { motion } from "framer-motion";
+import Breadcrumb from "./Breadcrumb";
+
+export default function PageLayout({ 
+  children, 
+  title, 
+  subtitle, 
+  breadcrumbItems,
+  className = ""
+}) {
+  return (
+    <main className={`min-h-screen bg-[#f4f3f0] pt-20 ${className}`}>
+      {/* Hero Section */}
+      <section className="relative py-12 lg:py-16 overflow-hidden bg-[#f4f3f0]">
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 60px, #003194 60px, #003194 61px),
+                             repeating-linear-gradient(90deg, transparent, transparent 60px, #003194 60px, #003194 61px)`,
+          }}
+        />
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#003194]/5 via-transparent to-transparent" />
+        <div className="absolute bottom-0 left-0 w-1/3 h-2/3 bg-gradient-to-tr from-[#6D67E4]/5 via-transparent to-transparent" />
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-4"
+          >
+            <Breadcrumb items={breadcrumbItems} />
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <span className="inline-flex items-center gap-2 bg-[#003194]/10 text-[#003194] px-4 py-2 rounded-full text-sm font-medium mb-4">
+              {title}
+            </span>
+          </motion.div>
+          
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="font-bold text-[#040316] text-4xl sm:text-5xl lg:text-5xl leading-[1.1] tracking-tight"
+          >
+            {title}
+          </motion.h1>
+          
+          {subtitle && (
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-[#040316]/60 text-base sm:text-lg max-w-2xl mt-4"
+            >
+              {subtitle}
+            </motion.p>
+          )}
+        </div>
+      </section>
+
+      {/* Content */}
+      {children}
+    </main>
+  );
+}

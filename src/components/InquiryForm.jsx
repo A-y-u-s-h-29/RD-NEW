@@ -168,10 +168,9 @@ export default function InquiryForm() {
 
             <motion.div variants={itemVariants} className="space-y-4">
               {[
-                { icon: <MapPin size={18} />, label: "Office Address", value: "RD Technologies and Projects Pvt. Ltd., India" },
-                { icon: <Phone size={18} />, label: "Phone", value: "+91 XXXXX XXXXX" },
+                { icon: <MapPin size={18} />, label: "Office Address", value: "68/1523, 5th Floor,C. M. Mathew Brothers Arcade,Kannur Road,Chakkorathukulam,Kozhikode – 673006,Kerala, India." },
+                { icon: <Phone size={18} />, label: "Phone", value: "+91 85956 52629" },
                 { icon: <Mail size={18} />, label: "Email", value: "info@rdtechnologies.in" },
-                { icon: <Clock size={18} />, label: "Business Hours", value: "Mon – Sat, 9:00 AM – 6:00 PM" },
               ].map((item, index) => (
                 <motion.div
                   key={index}

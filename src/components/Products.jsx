@@ -57,13 +57,13 @@ export default function Products() {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.9,
-        ease: [0.25, 1, 0.5, 1], // Premium ease-in-out curve
+        duration: 0.7,
+        ease: [0.25, 1, 0.5, 1],
       }
     }
   };
 
-  // STAGE 2: Section Header Reveal
+  // STAGE 2: Section Header Reveal (Faster)
   const headerContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -73,137 +73,137 @@ export default function Products() {
   };
 
   const headerBadgeVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.7,
-        ease: [0.215, 0.610, 0.355, 1],
-        delay: 0.8 // Triggers precisely as background animation completes
-      }
-    }
-  };
-
-  const headerTitleVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.7,
-        ease: [0.215, 0.610, 0.355, 1],
-        delay: 0.95
-      }
-    }
-  };
-
-  const headerSubtitleVariants = {
     hidden: { y: 40, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.7,
+        duration: 0.5,
         ease: [0.215, 0.610, 0.355, 1],
-        delay: 1.1
+        delay: 0.5
+      }
+    }
+  };
+
+  const headerTitleVariants = {
+    hidden: { y: 40, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.215, 0.610, 0.355, 1],
+        delay: 0.6
+      }
+    }
+  };
+
+  const headerSubtitleVariants = {
+    hidden: { y: 35, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.215, 0.610, 0.355, 1],
+        delay: 0.7
       }
     }
   };
 
   // STAGE 2 CONTINUED: Product Card Structural Wrappers & Text Content Staggers
   const cardLeftVariants = {
-    hidden: { y: 60, opacity: 0 },
+    hidden: { y: 50, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: [0.215, 0.610, 0.355, 1],
-        delay: 1.25
+        delay: 0.8
       }
     }
   };
 
   const cardRightVariants = {
-    hidden: { y: 60, opacity: 0 },
+    hidden: { y: 50, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: [0.215, 0.610, 0.355, 1],
-        delay: 1.4
+        delay: 0.9
       }
     }
   };
 
   // Staggered contents inside product description frames
   const cardBadgeVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 25, opacity: 0 },
     visible: (customDelay) => ({
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut", delay: customDelay + 0.1 }
+      transition: { duration: 0.4, ease: "easeOut", delay: customDelay + 0.05 }
     })
   };
 
   const cardTitleVariants = {
-    hidden: { y: 35, opacity: 0 },
+    hidden: { y: 25, opacity: 0 },
     visible: (customDelay) => ({
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut", delay: customDelay + 0.2 }
+      transition: { duration: 0.4, ease: "easeOut", delay: customDelay + 0.1 }
     })
   };
 
   const cardDescVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 25, opacity: 0 },
     visible: (customDelay) => ({
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut", delay: customDelay + 0.3 }
+      transition: { duration: 0.4, ease: "easeOut", delay: customDelay + 0.15 }
     })
   };
 
   const cardFeaturesVariants = {
-    hidden: { y: 25, opacity: 0 },
-    visible: (customDelay) => ({
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut", delay: customDelay + 0.4 }
-    })
-  };
-
-  const cardSpecsVariants = {
-    hidden: { y: 25, opacity: 0 },
-    visible: (customDelay) => ({
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut", delay: customDelay + 0.5 }
-    })
-  };
-
-  const cardCtaVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: (customDelay) => ({
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut", delay: customDelay + 0.6 }
+      transition: { duration: 0.4, ease: "easeOut", delay: customDelay + 0.2 }
+    })
+  };
+
+  const cardSpecsVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: (customDelay) => ({
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.4, ease: "easeOut", delay: customDelay + 0.25 }
+    })
+  };
+
+  const cardCtaVariants = {
+    hidden: { y: 15, opacity: 0 },
+    visible: (customDelay) => ({
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.35, ease: "easeOut", delay: customDelay + 0.3 }
     })
   };
 
   // STAGE 3: Final Product Image Reveal (Slides up with subtle premium scaling effect)
   const cardImageVariants = {
-    hidden: { y: 50, opacity: 0, scale: 0.95 },
+    hidden: { y: 40, opacity: 0, scale: 0.95 },
     visible: (customDelay) => ({
       y: 0,
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: [0.25, 1, 0.5, 1],
-        delay: customDelay + 0.75 // Ensures images render after content narration concludes
+        delay: customDelay + 0.4
       }
     })
   };
@@ -214,19 +214,19 @@ export default function Products() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 2.3
+        staggerChildren: 0.08,
+        delayChildren: 1.5
       }
     }
   };
 
   const statItemVariants = {
-    hidden: { y: 30, opacity: 0, scale: 0.95 },
+    hidden: { y: 25, opacity: 0, scale: 0.95 },
     visible: {
       y: 0,
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.5, ease: "easeOut" }
     }
   };
 
@@ -235,7 +235,7 @@ export default function Products() {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.6, ease: "easeOut", delay: 2.7 }
+      transition: { duration: 0.5, ease: "easeOut", delay: 1.8 }
     }
   };
 
@@ -293,7 +293,7 @@ export default function Products() {
         />
       </motion.div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         
         {/* Section Header Text Content - Step 2 Reveal */}
         <motion.div 
@@ -320,7 +320,7 @@ export default function Products() {
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-[#003194]/20 rounded-full"
                 initial={{ scaleX: 0 }}
                 animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-                transition={{ duration: 1, delay: 1.6, ease: [0.25, 1, 0.5, 1] }}
+                transition={{ duration: 0.8, delay: 1.0, ease: [0.25, 1, 0.5, 1] }}
               />
             </span>
           </motion.h2>
@@ -349,21 +349,21 @@ export default function Products() {
               
               {/* Product Content Elements - Step 2 Stagger */}
               <div className="relative p-8 sm:p-10 lg:p-12 pt-12 sm:pt-14 lg:pt-16 flex-1 flex flex-col">
-                <motion.div variants={cardBadgeVariants} custom={1.25} className="inline-block mb-4">
+                <motion.div variants={cardBadgeVariants} custom={0.8} className="inline-block mb-4">
                   <span className="text-xs font-bold uppercase tracking-widest text-white/70 bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/10">
                     {products[0].category}
                   </span>
                 </motion.div>
 
-                <motion.h3 variants={cardTitleVariants} custom={1.25} className="font-bold text-white text-3xl sm:text-4xl lg:text-5xl leading-[1.1] mb-4">
+                <motion.h3 variants={cardTitleVariants} custom={0.8} className="font-bold text-white text-3xl sm:text-4xl lg:text-5xl leading-[1.1] mb-4">
                   {products[0].name}
                 </motion.h3>
 
-                <motion.p variants={cardDescVariants} custom={1.25} className="text-white/80 text-sm sm:text-base leading-relaxed max-w-md mb-6">
+                <motion.p variants={cardDescVariants} custom={0.8} className="text-white/80 text-sm sm:text-base leading-relaxed max-w-md mb-6">
                   {products[0].description}
                 </motion.p>
 
-                <motion.div variants={cardFeaturesVariants} custom={1.25} className="flex flex-wrap gap-2 mb-6">
+                <motion.div variants={cardFeaturesVariants} custom={0.8} className="flex flex-wrap gap-2 mb-6">
                   {products[0].features.map((feature) => (
                     <span key={feature} className="text-xs font-medium text-white/90 bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/5">
                       {feature}
@@ -371,7 +371,7 @@ export default function Products() {
                   ))}
                 </motion.div>
 
-                <motion.div variants={cardSpecsVariants} custom={1.25} className="space-y-1.5 mb-8 flex-1">
+                <motion.div variants={cardSpecsVariants} custom={0.8} className="space-y-1.5 mb-8 flex-1">
                   {products[0].specs.map((spec) => (
                     <div key={spec} className="flex items-center gap-2.5 text-sm text-white/70">
                       <span className="w-1.5 h-1.5 rounded-full bg-white/30 flex-shrink-0" />
@@ -380,7 +380,7 @@ export default function Products() {
                   ))}
                 </motion.div>
 
-                <motion.div variants={cardCtaVariants} custom={1.25}>
+                <motion.div variants={cardCtaVariants} custom={0.8}>
                   <a
                     href="#inquiry"
                     className="group/btn inline-flex items-center gap-2 px-6 py-3 bg-white text-[#003194] font-semibold text-sm rounded-full hover:bg-white/90 transition-all duration-300 shadow-lg shadow-black/20"
@@ -403,7 +403,7 @@ export default function Products() {
                 variants={cardImageVariants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
-                custom={1.25}
+                custom={0.8}
                 className="relative px-6 sm:px-8 pb-6 sm:pb-8 flex-shrink-0"
               >
                 <div className="relative rounded-2xl overflow-hidden transition-all duration-500 group-hover:scale-[1.02]">
@@ -435,21 +435,21 @@ export default function Products() {
               
               {/* Product Content Elements - Step 2 Stagger */}
               <div className="relative p-8 sm:p-10 lg:p-12 pt-12 sm:pt-14 lg:pt-16 flex-1 flex flex-col">
-                <motion.div variants={cardBadgeVariants} custom={1.4} className="inline-block mb-4">
+                <motion.div variants={cardBadgeVariants} custom={0.9} className="inline-block mb-4">
                   <span className="text-xs font-bold uppercase tracking-widest text-white/70 bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/10">
                     {products[1].category}
                   </span>
                 </motion.div>
 
-                <motion.h3 variants={cardTitleVariants} custom={1.4} className="font-bold text-white text-3xl sm:text-4xl lg:text-5xl leading-[1.1] mb-4">
+                <motion.h3 variants={cardTitleVariants} custom={0.9} className="font-bold text-white text-3xl sm:text-4xl lg:text-5xl leading-[1.1] mb-4">
                   {products[1].name}
                 </motion.h3>
 
-                <motion.p variants={cardDescVariants} custom={1.4} className="text-white/80 text-sm sm:text-base leading-relaxed max-w-md mb-6">
+                <motion.p variants={cardDescVariants} custom={0.9} className="text-white/80 text-sm sm:text-base leading-relaxed max-w-md mb-6">
                   {products[1].description}
                 </motion.p>
 
-                <motion.div variants={cardFeaturesVariants} custom={1.4} className="flex flex-wrap gap-2 mb-6">
+                <motion.div variants={cardFeaturesVariants} custom={0.9} className="flex flex-wrap gap-2 mb-6">
                   {products[1].features.map((feature) => (
                     <span key={feature} className="text-xs font-medium text-white/90 bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/5">
                       {feature}
@@ -457,7 +457,7 @@ export default function Products() {
                   ))}
                 </motion.div>
 
-                <motion.div variants={cardSpecsVariants} custom={1.4} className="space-y-1.5 mb-8 flex-1">
+                <motion.div variants={cardSpecsVariants} custom={0.9} className="space-y-1.5 mb-8 flex-1">
                   {products[1].specs.map((spec) => (
                     <div key={spec} className="flex items-center gap-2.5 text-sm text-white/70">
                       <span className="w-1.5 h-1.5 rounded-full bg-white/30 flex-shrink-0" />
@@ -466,7 +466,7 @@ export default function Products() {
                   ))}
                 </motion.div>
 
-                <motion.div variants={cardCtaVariants} custom={1.4}>
+                <motion.div variants={cardCtaVariants} custom={0.9}>
                   <a
                     href="#inquiry"
                     className="group/btn inline-flex items-center gap-2 px-6 py-3 bg-white text-[#003194] font-semibold text-sm rounded-full hover:bg-white/90 transition-all duration-300 shadow-lg shadow-black/20"
@@ -489,7 +489,7 @@ export default function Products() {
                 variants={cardImageVariants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
-                custom={1.4}
+                custom={0.9}
                 className="relative px-6 sm:px-8 pb-6 sm:pb-8 flex-shrink-0"
               >
                 <div className="relative rounded-2xl overflow-hidden ">
