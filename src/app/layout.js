@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import { LoaderProvider } from "@/context/LoaderContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,14 +17,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.className} bg-[#f4f3f0]`}>
-        <div className="min-h-screen flex flex-col">
-          <Navbar />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-          <ScrollToTop />
-        </div>
+        <LoaderProvider>
+          <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+            <ScrollToTop />
+          </div>
+        </LoaderProvider>
       </body>
     </html>
   );

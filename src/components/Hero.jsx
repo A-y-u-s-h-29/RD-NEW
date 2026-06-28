@@ -19,7 +19,7 @@ const sliderImages = [
   }
 ];
 
-export default function Hero() {
+export default function Hero({ isReady = false }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Auto-slide every 4 seconds
@@ -59,12 +59,14 @@ export default function Hero() {
         <div className="absolute bottom-10 right-10 w-40 h-40 border-l-2 border-b-2 border-[#003194]/5 rounded-bl-3xl" />
         <div className="absolute top-10 left-10 w-24 h-24 border-r-2 border-t-2 border-[#003194]/5 rounded-tr-3xl" />
       </div>
+      
 
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-14 py-8 sm:py-12 lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center w-full mt-8 sm:mt-10 lg:mt-0">
         {/* LEFT SIDE */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
+          whileInView={isReady ? { opacity: 1, x: 0 } : {}}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="space-y-4 sm:space-y-5 lg:space-y-6"
         >
@@ -111,30 +113,14 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          {/* Trust indicators */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex flex-wrap items-center gap-4 sm:gap-6 lg:gap-8 pt-4 sm:pt-6 border-t border-[#003194]/10"
-          >
-            {[
-              { icon: ShieldCheck, label: "IS Certified" },
-              { icon: Award, label: "15+ Years" },
-              { icon: Users, label: "500+ Projects" },
-            ].map((item, i) => (
-              <div key={i} className="flex items-center gap-1.5 sm:gap-2">
-                <item.icon size={16} className="sm:w-[18px] sm:h-[18px] text-[#003194]" />
-                <span className="text-[10px] sm:text-xs font-medium text-[#040316]/70">{item.label}</span>
-              </div>
-            ))}
-          </motion.div>
+          
         </motion.div>
 
         {/* RIGHT SIDE - Overlapping Image Slider */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
+          whileInView={isReady ? { opacity: 1, x: 0 } : {}}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           className="relative flex items-center justify-center min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[450px]"
         >

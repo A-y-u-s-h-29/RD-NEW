@@ -15,7 +15,7 @@ const products = [
   "Other / Custom Requirement",
 ];
 
-export default function InquiryForm() {
+export default function InquiryForm({ isReady = false }) {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, {
     once: true,
@@ -102,7 +102,7 @@ export default function InquiryForm() {
       <motion.div
         className="absolute inset-0 pointer-events-none"
         initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+        animate={isInView && isReady ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 1, delay: 0.2 }}
       >
         <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-[#003194]/5 via-transparent to-transparent" />
@@ -134,7 +134,7 @@ export default function InquiryForm() {
           <motion.div
             variants={containerVariants}
             initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
+            animate={isInView && isReady ? "visible" : "hidden"}
           >
             <motion.div variants={itemVariants}>
               <span className="inline-flex items-center gap-2 bg-[#003194]/10 text-[#003194] px-4 py-2 rounded-full text-sm font-medium mb-4">
@@ -217,8 +217,7 @@ export default function InquiryForm() {
           <motion.div
             variants={formVariants}
             initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="bg-white/80 backdrop-blur-sm border border-white/60 rounded-2xl shadow-xl shadow-[#003194]/5 p-6 sm:p-8"
+            animate={isInView && isReady ? "visible" : "hidden"}
           >
             {submitted ? (
               <motion.div

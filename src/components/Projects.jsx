@@ -280,11 +280,11 @@ const projects = [
     year: "2024",
     description:
       "High mast lighting installation at Gandhi Park to provide reliable illumination, improve public safety, and enhance the overall visitor experience.",
-    image: "/images/project (9).jpeg",
+    image: "/images/project (90).jpeg",
     category: "Public Parks",
     status: "Completed",
     media: [
-      { type: "image", src: "/images/project (9).jpeg" },
+      { type: "image", src: "/images/project (90).jpeg" },
     ],
     technical: {
       height: "15 Meters",
@@ -692,7 +692,7 @@ const Lightbox = ({ media, initialIndex, onClose }) => {
   );
 };
 
-export default function Projects() {
+export default function Projects({ isReady = false }) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedId, setSelectedId] = useState(projects[0].id);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -734,8 +734,24 @@ export default function Projects() {
       />
       <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-[#003194]/10 via-transparent to-transparent hidden lg:block" />
 
+
+
+        {/* Wrap all animated sections with conditions */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isReady ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6 }}
+        className="...">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         
+
+
+        {/* Wrap all animated sections with conditions */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isReady ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6 }}
+        className="..."></motion.div>
         {/* Header Layout */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 pb-8 border-b border-[#040316]/10">
           <div>
@@ -1050,6 +1066,7 @@ export default function Projects() {
           />
         )}
       </AnimatePresence>
+    </motion.div>
     </section>
   );
 }

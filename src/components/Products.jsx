@@ -34,7 +34,7 @@ const products = [
   }
 ];
 
-export default function Products() {
+export default function Products({ isReady = false }) {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { 
     once: true, 
@@ -250,7 +250,7 @@ export default function Products() {
         className="absolute inset-0 pointer-events-none"
         variants={backgroundVariants}
         initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+        animate={isInView && isReady ? "visible" : "hidden"}
       >
         <div className="absolute top-0 left-0 w-2/3 h-full bg-gradient-to-r from-[#003194]/5 via-transparent to-transparent" />
         <div className="absolute bottom-0 right-0 w-1/3 h-2/3 bg-gradient-to-bl from-[#6D67E4]/5 via-transparent to-transparent" />
@@ -300,7 +300,7 @@ export default function Products() {
           className="text-center mb-16"
           variants={headerContainerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={isInView && isReady ? "visible" : "hidden"}
         >
           <motion.div
             className="inline-flex items-center gap-2 bg-[#003194]/10 text-[#003194] px-4 py-2 rounded-full text-sm font-medium mb-4"
@@ -340,7 +340,7 @@ export default function Products() {
           <motion.div
             variants={cardLeftVariants}
             initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
+            animate={isInView && isReady ? "visible" : "hidden"}
             className="group relative h-full"
           >
             <div className="relative bg-gradient-to-br from-[#003194] via-[#003194] to-[#6D67E4] rounded-[2.5rem] rounded-tr-[6rem] rounded-tl-[6rem] overflow-hidden shadow-2xl shadow-[#003194]/20 hover:shadow-3xl hover:shadow-[#003194]/30 transition-all duration-500 h-full flex flex-col">

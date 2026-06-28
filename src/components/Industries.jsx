@@ -61,7 +61,7 @@ const industries = [
   },
 ];
 
-export default function Industries() {
+export default function Industries({ isReady = false }) {
   const sectionRef = useRef(null);
   const [hoveredId, setHoveredId] = useState(null);
   const isInView = useInView(sectionRef, {
@@ -72,9 +72,36 @@ export default function Industries() {
 
   const [hasAnimated, setHasAnimated] = useState(false);
 
+  const statsConfig = [
+    { icon: <Globe size={22} />, label: "Industries Served", value: 8, suffix: "+" },
+    { icon: <Briefcase size={22} />, label: "Projects Completed", value: 60, suffix: "+" },
+    { icon: <Users size={22} />, label: "Happy Clients", value: 50, suffix: "+" },
+    { icon: <Award size={22} />, label: "Years of Excellence", value: 10, suffix: "+" },
+  ];
+
+  // State hook managing smooth counter arrays
+  const [counts, setCounts] = useState([0, 0, 0, 0]);
+
   useEffect(() => {
     if (isInView && !hasAnimated) {
       setHasAnimated(true);
+      let startTimestamp = null;
+      const duration = 2000; // 2 seconds animation time
+
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        
+        setCounts(
+          statsConfig.map(stat => Math.floor(progress * stat.value))
+        );
+
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+
+      window.requestAnimationFrame(step);
     }
   }, [isInView, hasAnimated]);
 
@@ -111,7 +138,7 @@ export default function Industries() {
       <motion.div
         className="absolute inset-0 pointer-events-none"
         initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+        animate={isInView && isReady ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 1, delay: 0.2 }}
       >
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#003194]/5 via-transparent to-transparent" />
@@ -136,7 +163,7 @@ export default function Industries() {
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          animate={isInView && isReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <motion.div
@@ -178,12 +205,12 @@ export default function Industries() {
         </motion.div>
 
         {/* Premium Expandable Gallery */}
-<motion.div
-  className="flex flex-col md:flex-row gap-0.5 max-w-7xl mx-auto h-[550px] items-stretch"
-  variants={containerVariants}
-  initial="hidden"
-  animate={isInView ? "visible" : "hidden"}
->
+        <motion.div
+          className="flex flex-col md:flex-row gap-0.5 max-w-7xl mx-auto h-[550px] items-stretch"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
           {industries.map((industry) => {
             const isExpanded = hoveredId === industry.id;
 
@@ -193,7 +220,7 @@ export default function Industries() {
                 variants={itemVariants}
                 onMouseEnter={() => setHoveredId(industry.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                className="relative overflow-hidden rounded-2xl cursor-pointer bg-white shadow-lg shadow-[#040316]/5 border border-white/60"
+                className="relative overflow-hidden rounded-2xl cursor-pointer bg-white shadow-lg shadow-[#040316]/5 border border border-white/60"
                 style={{
                   flex: isExpanded ? "3 1 0%" : "1 1 0%",
                   transition: "flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease, transform 0.4s ease",
@@ -255,8 +282,6 @@ export default function Industries() {
                     <p className="text-white/70 text-sm sm:text-base leading-relaxed mb-6">
                       {industry.description}
                     </p>
-
-                    
                   </div>
                 </div>
               </motion.div>
@@ -272,23 +297,17 @@ export default function Industries() {
           className="mt-20 bg-white/80 backdrop-blur-sm rounded-2xl border border-white/60 shadow-xl shadow-[#003194]/5 p-8 md:p-12 max-w-5xl mx-auto"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { icon: <Globe size={22} />, label: "Industries Served", value: "8+" },
-              { icon: <Briefcase size={22} />, label: "Projects Completed", value: "500+" },
-              { icon: <Users size={22} />, label: "Happy Clients", value: "200+" },
-              { icon: <Award size={22} />, label: "Years of Excellence", value: "15+" },
-            ].map((stat, index) => (
-              <motion.div
+            {statsConfig.map((stat, index) => (
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                transition={{ delay: 1.2 + index * 0.1 }}
                 className="text-center md:border-r last:border-0 border-[#040316]/10 px-2"
               >
                 <div className="flex justify-center text-[#003194] mb-3">{stat.icon}</div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-[#040316] tracking-tight">{stat.value}</p>
+                <p className="text-2xl sm:text-3xl font-extrabold text-[#040316] tracking-tight">
+                  {counts[index]}{stat.suffix}
+                </p>
                 <p className="text-xs text-[#040316]/40 font-medium mt-1 uppercase tracking-wider">{stat.label}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </motion.div>
